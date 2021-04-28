@@ -32,3 +32,18 @@ BEGIN
 END $$
 DELIMITER ;
 select CONCAT('message_', getNewMessageId());
+
+DROP FUNCTION getLastMessageSenderId;
+DELIMITER $$
+CREATE FUNCTION getLastMessageSenderId()
+RETURNS INTEGER
+DETERMINISTIC
+BEGIN
+	DECLARE counter INTEGER;
+    SET counter = 0;
+    WHILE_LB1: WHILE counter < (SELECT COUNT(DISTINCT message_id) FROM messages_data) DO
+		SET counter = counter + 1;
+    END WHILE WHILE_LB1;
+    RETURN counter;
+END $$
+DELIMITER ;
