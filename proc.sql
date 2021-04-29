@@ -1,4 +1,4 @@
-DROP PROCEDURE sendMessage;
+-- DROP PROCEDURE sendMessage;
 
 DELIMITER $$
 CREATE PROCEDURE sendMessage(

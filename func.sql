@@ -2,7 +2,7 @@ use dbsprojecttest;
 select * from usersTable_data;
 select * from chat;
 
-drop function getNewChatId;
+-- drop function getNewChatId;
 DELIMITER $$
 CREATE FUNCTION getNewChatId()
 RETURNS integer
@@ -17,7 +17,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-drop function getNewMessageId;
+-- drop function getNewMessageId;
 DELIMITER $$
 CREATE FUNCTION getNewMessageId()
 RETURNS integer
@@ -33,7 +33,7 @@ END $$
 DELIMITER ;
 select CONCAT('message_', getNewMessageId());
 
-DROP FUNCTION getLastMessageSenderId;
+-- DROP FUNCTION getLastMessageSenderId;
 DELIMITER $$
 CREATE FUNCTION getLastMessageSenderId()
 RETURNS INTEGER

@@ -1,6 +1,6 @@
 USE dbsprojecttest;
 
-DROP TRIGGER update_last_active;
+-- DROP TRIGGER update_last_active;
 DELIMITER $$
 CREATE TRIGGER update_last_active
 AFTER INSERT ON messages_meta

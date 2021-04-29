@@ -1,5 +1,6 @@
 use dbsprojecttest;
-drop procedure createNewUser;
+-- drop procedure createNewUser;
+-- drop table messages_link;
 DELIMITER $$
 
 CREATE PROCEDURE createNewUser(
@@ -17,44 +18,44 @@ END $$
 
 DELIMITER ;
 
-
+DROP PROCEDURE deleteUser;
 DELIMITER $$
 
 CREATE PROCEDURE deleteUser(IN del_user_id varchar(20))
 BEGIN
     -- mData -> chat -> chat_users -> mLink -> mMeta -> uCreds -> uData
     DELETE FROM messages_data
-    WHERE message_id = (
-        SELECT message_id FROM messages_meta
+    WHERE message_id IN (
+        SELECT m_meta_message_id FROM messages_meta
         WHERE m_meta_sender_id = del_user_id
     );
 
     DELETE FROM chat
-    WHERE chat_id = (
+    WHERE chat_id IN (
         SELECT m_link_chat_id FROM messages_link
-        WHERE m_link_message_id = (
-            SELECT message_id FROM messages_meta
+        WHERE m_link_message_id IN (
+            SELECT m_meta_message_id FROM messages_meta
             WHERE m_meta_sender_id = del_user_id
         )
     );
 
     DELETE FROM chat_users
-    WHERE chat_id = (
+    WHERE chat_id IN (
         SELECT m_link_chat_id FROM messages_link
-        WHERE m_link_message_id = (
-            SELECT message_id FROM messages_meta
+        WHERE m_link_message_id IN (
+            SELECT m_meta_message_id FROM messages_meta
             WHERE m_meta_sender_id = del_user_id
         )
     );
 
     DELETE FROM messages_link
-    WHERE message_id = (
-        SELECT message_id FROM messages_meta
+    WHERE m_link_message_id IN (
+        SELECT m_meta_message_id FROM messages_meta
         WHERE m_meta_sender_id = del_user_id
     );
 
     DELETE FROM messages_meta
-    WHERE del_user_id = m_link_sender_id;
+    WHERE del_user_id = m_meta_sender_id;
 
     DELETE FROM usersTable_creds
     WHERE del_user_id = creds_user_id;

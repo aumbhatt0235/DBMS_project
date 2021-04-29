@@ -18,7 +18,7 @@ CREATE TABLE usersTable_creds(
     FOREIGN KEY(creds_user_id) REFERENCES usersTable_data(user_id) ON DELETE CASCADE
 );
 
-DROP TABLE chat;
+-- DROP TABLE chat;
 CREATE TABLE chat(
     chat_id varchar(20) NOT NULL,
     chat_name varchar(20),
@@ -35,7 +35,7 @@ CREATE TABLE chat_users(
     FOREIGN KEY(chat_user_id) REFERENCES usersTable_data(user_id) ON DELETE CASCADE
 );
 
-DROP TABLE messages_data;
+-- DROP TABLE messages_data;
 CREATE TABLE messages_data(
     message_id varchar(20) NOT NULL,
     message_content varchar(20),
@@ -43,7 +43,7 @@ CREATE TABLE messages_data(
     PRIMARY KEY(message_id)
 );
 
-DROP TABLE messages_link;
+-- DROP TABLE messages_link;
 CREATE TABLE messages_link(
     m_link_message_id varchar(20) NOT NULL,
     m_link_chat_id varchar(20) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE messages_link(
     FOREIGN KEY(m_link_message_id) REFERENCES messages_data(message_id) ON DELETE CASCADE,
     FOREIGN KEY(m_link_chat_id) REFERENCES chat(chat_id) ON DELETE CASCADE
 );
-DROP TABLE messages_meta;
+-- DROP TABLE messages_meta;
 CREATE TABLE messages_meta(
     m_meta_message_id varchar(20) NOT NULL,
     m_meta_sender_id varchar(20),
